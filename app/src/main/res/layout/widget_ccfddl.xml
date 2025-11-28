@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/widget_bg_white"
+    android:padding="8dp">
+
+    <!-- 顶部筛选信息 -->
+    <TextView
+        android:id="@+id/tv_filter_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CCF: A/B · SC"
+        android:textSize="13sp"
+        android:textColor="#666666"
+        android:maxLines="1"
+        android:ellipsize="end" />
+
+    <!-- 第一条会议 -->
+    <LinearLayout
+        android:id="@+id/card_conf1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FFF5F5F5"
+        android:padding="8dp"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/tv_conf1_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SIGCOMM 2026 [A · SC]"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#222222"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/tv_conf1_deadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Deadline: 2025-09-15 23:59"
+            android:textSize="12sp"
+            android:textColor="#444444" />
+
+        <TextView
+            android:id="@+id/tv_conf1_dday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="D-23"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#4CAF50" />
+
+        <TextView
+            android:id="@+id/tv_conf1_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ACM International Conference on Data Communication..."
+            android:textSize="11sp"
+            android:textColor="#777777"
+            android:maxLines="1"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+    <!-- 第二条会议 -->
+    <LinearLayout
+        android:id="@+id/card_conf2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FFF5F5F5"
+        android:padding="8dp"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/tv_conf2_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NDSS 2026 [A · SC]"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#222222"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/tv_conf2_deadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Deadline: 2025-08-01 23:59"
+            android:textSize="12sp"
+            android:textColor="#444444" />
+
+        <TextView
+            android:id="@+id/tv_conf2_dday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="D-45"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FFC107" />
+
+        <TextView
+            android:id="@+id/tv_conf2_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Network and Distributed System Security..."
+            android:textSize="11sp"
+            android:textColor="#777777"
+            android:maxLines="1"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+    <!-- 第三条会议 -->
+    <LinearLayout
+        android:id="@+id/card_conf3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FFF5F5F5"
+        android:padding="8dp"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/tv_conf3_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CCS 2026 [A · SC]"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#222222"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/tv_conf3_deadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Deadline: 2025-07-10 23:59"
+            android:textSize="12sp"
+            android:textColor="#444444" />
+
+        <TextView
+            android:id="@+id/tv_conf3_dday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="D-68"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#F44336" />
+
+        <TextView
+            android:id="@+id/tv_conf3_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ACM Conference on Computer and Communications Security..."
+            android:textSize="11sp"
+            android:textColor="#777777"
+            android:maxLines="1"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+</LinearLayout>
