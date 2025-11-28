@@ -59,7 +59,7 @@ All conference deadline data comes from the official ccfddl dataset.
 Clone repo:
 
 ```bash
-git clone https://github.com/yourname/Android-CCFDDL-Widget.git
+git clone https://github.com/A1LinLin1/Android-CCFDDL-Widget.git
 ```
 
 Open in Android Studio → run the app → place the widget on home screen.
