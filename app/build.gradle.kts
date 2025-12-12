@@ -56,4 +56,11 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // 网络请求：OkHttp
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    // 解析 YAML：SnakeYAML
+    implementation("org.yaml:snakeyaml:2.2")
+    // 协程（在 Android 上用）
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }
