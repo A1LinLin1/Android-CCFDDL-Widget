@@ -1,41 +1,80 @@
 package net.A1LinLin1.ccfddlwidget
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.widget.RemoteViews
+import androidx.core.app.TaskStackBuilder
+import net.A1LinLin1.ccfddlwidget.settings.SettingsStore
+import net.A1LinLin1.ccfddlwidget.widget.CcfddlRemoteViewsService
 
 class CcfddlWidgetProvider : AppWidgetProvider() {
-    override fun onUpdate(
-        context: Context,
-        appWidgetManager: AppWidgetManager,
-        appWidgetIds: IntArray
-    ) {
-        super.onUpdate(context, appWidgetManager, appWidgetIds)
+    companion object {
+        private const val ACTION_OPEN_DETAIL = "net.A1LinLin1.ccfddlwidget.ACTION_OPEN_DETAIL"
+    }
 
-        for (appWidgetId in appWidgetIds) {
-            val views = RemoteViews(context.packageName, R.layout.widget_ccfddl).apply {
-                // 这里先用假数据，后面再替换成真实的 ccfddl 数据
+    override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
 
-                setTextViewText(R.id.tv_filter_info, "CCF: A/B · SC")
+        val subs = SettingsStore.loadSubs(context)
+        val ranks = SettingsStore.loadRanks(context)
 
-                setTextViewText(R.id.tv_conf1_title, "SIGCOMM 2026 [A · SC]")
-                setTextViewText(R.id.tv_conf1_deadline, "Deadline: 2025-09-15 23:59")
-                setTextViewText(R.id.tv_conf1_dday, "D-23")
-                setTextViewText(R.id.tv_conf1_desc, "ACM International Conference on...")
+        val filterText = buildString {
+            append("CCF: ")
+            append(if (ranks.isEmpty()) "ALL" else ranks.sorted().joinToString("/"))
+            append(" · ")
+            append(if (subs.isEmpty()) "未选择方向" else subs.sorted().joinToString(" · "))
+        }
 
-                setTextViewText(R.id.tv_conf2_title, "NDSS 2026 [A · SC]")
-                setTextViewText(R.id.tv_conf2_deadline, "Deadline: 2025-08-01 23:59")
-                setTextViewText(R.id.tv_conf2_dday, "D-45")
-                setTextViewText(R.id.tv_conf2_desc, "Network and Distributed System Security...")
+        appWidgetIds.forEach { widgetId ->
+            val views = RemoteViews(context.packageName, R.layout.widget_ccfddl_list)
 
-                setTextViewText(R.id.tv_conf3_title, "CCS 2026 [A · SC]")
-                setTextViewText(R.id.tv_conf3_deadline, "Deadline: 2025-07-10 23:59")
-                setTextViewText(R.id.tv_conf3_dday, "D-68")
-                setTextViewText(R.id.tv_conf3_desc, "ACM Conference on Computer and Communications Security...")
+            // 顶部筛选信息
+            views.setTextViewText(R.id.tv_filter_info, filterText)
+
+            // 绑定 ListView 的数据源（RemoteViewsService）
+            val svcIntent = Intent(context, CcfddlRemoteViewsService::class.java).apply {
+                putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
+                // 关键：给 intent 一个唯一 Uri，防止多个 widget 复用导致不刷新
+                data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
+            }
+            views.setRemoteAdapter(R.id.list_conferences, svcIntent)
+
+            val openIntent = Intent(context, CcfddlWidgetProvider::class.java).apply {
+                action = ACTION_OPEN_DETAIL
+            }
+            val openPI = PendingIntent.getBroadcast(
+                context,
+                widgetId,
+                openIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+            )
+            views.setPendingIntentTemplate(R.id.list_conferences, openPI)
+
+            // 更新 widget
+            appWidgetManager.updateAppWidget(widgetId, views)
+
+            // 通知 ListView 刷新（会触发 RemoteViewsFactory.onDataSetChanged）
+            appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.list_conferences)
+        }
+    }
+
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+
+        if (intent.action == ACTION_OPEN_DETAIL) {
+            // intent.extras 就是 Factory 里 fillInIntent 塞进来的 extras
+            val detailIntent = Intent(context, DetailActivity::class.java).apply {
+                putExtras(intent.extras ?: return)
             }
 
-            appWidgetManager.updateAppWidget(appWidgetId, views)
+            TaskStackBuilder.create(context).run {
+                addNextIntent(Intent(context, MainActivity::class.java))
+                addNextIntent(detailIntent)
+                startActivities()
+            }
         }
     }
 }

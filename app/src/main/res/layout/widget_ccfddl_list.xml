@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@drawable/widget_bg_white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 顶部筛选信息 -->
+    <TextView
+        android:id="@+id/tv_filter_info"
+        android:text="CCF · SC · SE"
+        android:textSize="12sp"
+        android:textColor="#666666"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- 会议列表（可滚动） -->
+    <ListView
+        android:id="@+id/list_conferences"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"
+        android:overScrollMode="never"/>
+</LinearLayout>
